@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biochemistry of Learning Reflection Inventory</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1d4e89;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #145374;
+      margin-top: 50px;
+      border-bottom: 3px solid #dbeafe;
+      padding-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-style: italic;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .section-intro {
+      background: #eef6ff;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .question {
+      margin-bottom: 24px;
+      padding: 16px;
+      background: #fafafa;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .question p {
+      margin-top: 0;
+      font-weight: 600;
+    }
+
+    .scale {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    label {
+      cursor: pointer;
+    }
+
+    .results {
+      margin-top: 50px;
+      background: #f0fdf4;
+      border: 2px solid #86efac;
+      padding: 25px;
+      border-radius: 14px;
+    }
+
+    .score-card {
+      background: white;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      border-left: 6px solid #3b82f6;
+    }
+
+    .score-title {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .score-number {
+      font-size: 26px;
+      color: #1d4e89;
+      margin-top: 5px;
+    }
+
+    .reflection-box {
+      margin-top: 30px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 90px;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-family: Arial, sans-serif;
+      resize: vertical;
+    }
+
+    .footer-note {
+      margin-top: 40px;
+      background: #fff7ed;
+      border-left: 6px solid #fb923c;
+      padding: 18px;
+      border-radius: 10px;
+    }
+
+    .instructions {
+      background: #f8fafc;
+      border-left: 6px solid #38bdf8;
+      padding: 18px;
+      border-radius: 10px;
+      margin-bottom: 35px;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        padding: 20px;
+      }
+
+      .scale {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>The Biochemistry of Learning Reflection Inventory</h1>
+    <div class="subtitle">A Self-Assessment for Teachers</div>
+
+    <div class="instructions">
+      <strong>Instructions:</strong><br>
+      For each statement, rate how often the statement is true in your classroom.<br><br>
+      1 = Rarely &nbsp;&nbsp; 2 = Occasionally &nbsp;&nbsp; 3 = Sometimes &nbsp;&nbsp; 4 = Frequently &nbsp;&nbsp; 5 = Consistently
+    </div>
+
+    <form id="inventoryForm"></form>
+
+    <div class="results">
+      <h2>Your Results</h2>
+
+      <div class="score-card">
+        <div class="score-title">Endorphins</div>
+        <div class="score-number" id="endorphinsScore">0</div>
+      </div>
+
+      <div class="score-card">
+        <div class="score-title">Dopamine</div>
+        <div class="score-number" id="dopamineScore">0</div>
+      </div>
+
+      <div class="score-card">
+        <div class="score-title">Serotonin</div>
+        <div class="score-number" id="serotoninScore">0</div>
+      </div>
+
+      <div class="score-card">
+        <div class="score-title">Cortisol</div>
+        <div class="score-number" id="cortisolScore">0</div>
+      </div>
+
+      <div id="summary"></div>
+    </div>
+
+    <div class="reflection-box">
+      <h2>Reflection & Action Planning</h2>
+
+      <p><strong>Which hormone area is currently strongest in my practice?</strong></p>
+      <textarea></textarea>
+
+      <p><strong>Which hormone area may need more intentional development?</strong></p>
+      <textarea></textarea>
+
+      <p><strong>One practice I could begin implementing immediately:</strong></p>
+      <textarea></textarea>
+
+      <p><strong>One classroom structure or routine I may need to rethink:</strong></p>
+      <textarea></textarea>
+    </div>
+
+    <div class="footer-note">
+      <strong>Key Takeaway:</strong><br><br>
+      Deep learning occurs when students experience:
+      <ul>
+        <li>Safety and energy (Endorphins)</li>
+        <li>Momentum and success (Dopamine)</li>
+        <li>Belonging and trust (Serotonin)</li>
+        <li>Challenge and productive struggle (Cortisol)</li>
+      </ul>
+      The goal is not maximizing one hormone — it is creating balance across all four.
+    </div>
+  </div>
+
+  <script>
+    const sections = {
+      Endorphins: [
+        'I intentionally begin lessons with activities that lower stress and create emotional readiness.',
+        'Humour, storytelling, music, or warmth are regular parts of my classroom culture.',
+        'Students have opportunities for movement during learning.',
+        'I use routines or rituals that help students feel grounded and calm.',
+        'My classroom atmosphere reduces fear of failure and encourages perseverance.',
+        'Students appear emotionally regulated and willing to engage when class begins.',
+        'I intentionally incorporate joy, curiosity, or playfulness into learning experiences.'
+      ],
+      Dopamine: [
+        'I structure lessons so students experience early success.',
+        'I break complex learning into manageable progressions.',
+        'Students receive timely feedback that helps them recognize growth.',
+        'I regularly communicate belief in students’ thinking and capabilities.',
+        'Students can clearly see how today’s learning connects to future success.',
+        'My classroom includes low-stakes opportunities to check understanding.',
+        'I avoid over-relying on quizzes, points, or rewards as the primary motivators for learning.',
+        'Students demonstrate curiosity beyond simply getting the right answer.'
+      ],
+      Serotonin: [
+        'Students regularly collaborate in meaningful ways.',
+        'I intentionally create opportunities for student voice.',
+        'Students feel respected by both peers and adults in the classroom.',
+        'My classroom routines build trust and belonging.',
+        'Students are encouraged to support one another academically and emotionally.',
+        'I use discussion structures such as pair shares, buzz groups, or collaborative problem-solving.',
+        'Students appear comfortable taking intellectual risks in front of peers.',
+        'Students demonstrate empathy, encouragement, and shared ownership of learning.'
+      ],
+      Cortisol: [
+        'I provide students with intellectually demanding tasks.',
+        'Students are asked to wrestle with open-ended questions or authentic problems.',
+        'I calibrate challenge so students experience productive struggle rather than panic.',
+        'I scaffold difficult learning experiences appropriately.',
+        'Students understand that confusion and struggle are normal parts of learning.',
+        'My classroom culture allows students to persist through difficulty without shame.',
+        'I monitor student stress levels and adjust when challenge becomes overwhelming.',
+        'I avoid creating unnecessary stress through excessive grading pressure, unpredictability, or public embarrassment.'
+      ]
+    };
+
+    const form = document.getElementById('inventoryForm');
+
+    Object.entries(sections).forEach(([sectionName, questions]) => {
+      const section = document.createElement('div');
+      section.innerHTML = `<h2>${sectionName}</h2>`;
+
+      questions.forEach((question, index) => {
+        const div = document.createElement('div');
+        div.className = 'question';
+
+        let scaleHTML = '';
+        for (let i = 1; i <= 5; i++) {
+          scaleHTML += `
+            <label>
+              <input type="radio" name="${sectionName}-${index}" value="${i}" /> ${i}
+            </label>
+          `;
+        }
+
+        div.innerHTML = `
+          <p>${question}</p>
+          <div class="scale">${scaleHTML}</div>
+        `;
+
+        section.appendChild(div);
+      });
+
+      form.appendChild(section);
+    });
+
+    document.addEventListener('change', calculateScores);
+
+    function calculateScores() {
+      let totals = {
+        Endorphins: 0,
+        Dopamine: 0,
+        Serotonin: 0,
+        Cortisol: 0
+      };
+
+      Object.entries(sections).forEach(([sectionName, questions]) => {
+        questions.forEach((q, index) => {
+          const selected = document.querySelector(`input[name="${sectionName}-${index}"]:checked`);
+          if (selected) {
+            totals[sectionName] += parseInt(selected.value);
+          }
+        });
+      });
+
+      document.getElementById('endorphinsScore').textContent = totals.Endorphins;
+      document.getElementById('dopamineScore').textContent = totals.Dopamine;
+      document.getElementById('serotoninScore').textContent = totals.Serotonin;
+      document.getElementById('cortisolScore').textContent = totals.Cortisol;
+
+      const strongest = Object.entries(totals).sort((a,b)=>b[1]-a[1])[0][0];
+      const weakest = Object.entries(totals).sort((a,b)=>a[1]-b[1])[0][0];
+
+      document.getElementById('summary').innerHTML = `
+        <p><strong>Strongest Area:</strong> ${strongest}</p>
+        <p><strong>Growth Opportunity:</strong> ${weakest}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
