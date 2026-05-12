@@ -43,6 +43,14 @@
       margin-bottom: 30px;
     }
 
+    .instructions {
+      background: #f8fafc;
+      border-left: 6px solid #38bdf8;
+      padding: 18px;
+      border-radius: 10px;
+      margin-bottom: 35px;
+    }
+
     .section-intro {
       background: #eef6ff;
       padding: 16px;
@@ -114,18 +122,11 @@
       border: 1px solid #cbd5e1;
       font-family: Arial, sans-serif;
       resize: vertical;
-    }
-
-    .footer-note {
-      margin-top: 40px;
-      background: #fff7ed;
-      border-left: 6px solid #fb923c;
-      padding: 18px;
-      border-radius: 10px;
+      box-sizing: border-box;
     }
 
     .download-button {
-      margin-top: 20px;
+      margin-top: 30px;
       padding: 14px 22px;
       background: #1d4e89;
       color: white;
@@ -140,12 +141,12 @@
       background: #163b68;
     }
 
-    .instructions {
-      background: #f8fafc;
-      border-left: 6px solid #38bdf8;
+    .footer-note {
+      margin-top: 40px;
+      background: #fff7ed;
+      border-left: 6px solid #fb923c;
       padding: 18px;
       border-radius: 10px;
-      margin-bottom: 35px;
     }
 
     @media (max-width: 700px) {
@@ -178,43 +179,42 @@
 
       <div class="score-card">
         <div class="score-title">Endorphins</div>
-        <div class="score-number" id="endorphinsScore">0</div>
+        <div class="score-number" id="endorphinsScore">0 / 35</div>
       </div>
 
       <div class="score-card">
         <div class="score-title">Dopamine</div>
-        <div class="score-number" id="dopamineScore">0</div>
+        <div class="score-number" id="dopamineScore">0 / 40</div>
       </div>
 
       <div class="score-card">
         <div class="score-title">Serotonin</div>
-        <div class="score-number" id="serotoninScore">0</div>
+        <div class="score-number" id="serotoninScore">0 / 40</div>
       </div>
 
       <div class="score-card">
         <div class="score-title">Cortisol</div>
-        <div class="score-number" id="cortisolScore">0</div>
+        <div class="score-number" id="cortisolScore">0 / 40</div>
       </div>
 
       <div id="summary"></div>
-
-      </div>
+    </div>
 
     <div class="reflection-box">
       <h2>Reflection & Action Planning</h2>
 
       <p><strong>Which hormone area is currently strongest in my practice?</strong></p>
-      <textarea></textarea>
+      <textarea id="reflection1"></textarea>
 
       <p><strong>Which hormone area may need more intentional development?</strong></p>
-      <textarea></textarea>
+      <textarea id="reflection2"></textarea>
 
       <p><strong>One practice I could begin implementing immediately:</strong></p>
-      <textarea></textarea>
+      <textarea id="reflection3"></textarea>
 
       <p><strong>One classroom structure or routine I may need to rethink:</strong></p>
-      <textarea></textarea>
-    
+      <textarea id="reflection4"></textarea>
+    </div>
 
     <button type="button" class="download-button" onclick="downloadResults()">
       Download My Results
@@ -235,45 +235,61 @@
 
   <script>
     const sections = {
-      Endorphins: [
-        'I intentionally begin lessons with activities that lower stress and create emotional readiness.',
-        'Humour, storytelling, music, or warmth are regular parts of my classroom culture.',
-        'Students have opportunities for movement during learning.',
-        'I use routines or rituals that help students feel grounded and calm.',
-        'My classroom atmosphere reduces fear of failure and encourages perseverance.',
-        'Students appear emotionally regulated and willing to engage when class begins.',
-        'I intentionally incorporate joy, curiosity, or playfulness into learning experiences.'
-      ],
-      Dopamine: [
-        'I structure lessons so students experience early success.',
-        'I break complex learning into manageable progressions.',
-        'Students receive timely feedback that helps them recognize growth.',
-        'I regularly communicate belief in students’ thinking and capabilities.',
-        'Students can clearly see how today’s learning connects to future success.',
-        'My classroom includes low-stakes opportunities to check understanding.',
-        'I avoid over-relying on quizzes, points, or rewards as the primary motivators for learning.',
-        'Students demonstrate curiosity beyond simply getting the right answer.'
-      ],
-      Serotonin: [
-        'Students regularly collaborate in meaningful ways.',
-        'I intentionally create opportunities for student voice.',
-        'Students feel respected by both peers and adults in the classroom.',
-        'My classroom routines build trust and belonging.',
-        'Students are encouraged to support one another academically and emotionally.',
-        'I use discussion structures such as pair shares, buzz groups, or collaborative problem-solving.',
-        'Students appear comfortable taking intellectual risks in front of peers.',
-        'Students demonstrate empathy, encouragement, and shared ownership of learning.'
-      ],
-      Cortisol: [
-        'I provide students with intellectually demanding tasks.',
-        'Students are asked to wrestle with open-ended questions or authentic problems.',
-        'I calibrate challenge so students experience productive struggle rather than panic.',
-        'I scaffold difficult learning experiences appropriately.',
-        'Students understand that confusion and struggle are normal parts of learning.',
-        'My classroom culture allows students to persist through difficulty without shame.',
-        'I monitor student stress levels and adjust when challenge becomes overwhelming.',
-        'I avoid creating unnecessary stress through excessive grading pressure, unpredictability, or public embarrassment.'
-      ]
+      Endorphins: {
+        intro: 'Do students feel energized, emotionally safe, and ready to learn?',
+        max: 35,
+        questions: [
+          'I intentionally begin lessons with activities that lower stress and create emotional readiness.',
+          'Humour, storytelling, music, or warmth are regular parts of my classroom culture.',
+          'Students have opportunities for movement during learning.',
+          'I use routines or rituals that help students feel grounded and calm.',
+          'My classroom atmosphere reduces fear of failure and encourages perseverance.',
+          'Students appear emotionally regulated and willing to engage when class begins.',
+          'I intentionally incorporate joy, curiosity, or playfulness into learning experiences.'
+        ]
+      },
+      Dopamine: {
+        intro: 'Do students experience progress, success, and motivation?',
+        max: 40,
+        questions: [
+          'I structure lessons so students experience early success.',
+          'I break complex learning into manageable progressions.',
+          'Students receive timely feedback that helps them recognize growth.',
+          'I regularly communicate belief in students’ thinking and capabilities.',
+          'Students can clearly see how today’s learning connects to future success.',
+          'My classroom includes low-stakes opportunities to check understanding.',
+          'I avoid over-relying on quizzes, points, or rewards as the primary motivators for learning.',
+          'Students demonstrate curiosity beyond simply getting the right answer.'
+        ]
+      },
+      Serotonin: {
+        intro: 'Do students feel connected, valued, and part of a learning community?',
+        max: 40,
+        questions: [
+          'Students regularly collaborate in meaningful ways.',
+          'I intentionally create opportunities for student voice.',
+          'Students feel respected by both peers and adults in the classroom.',
+          'My classroom routines build trust and belonging.',
+          'Students are encouraged to support one another academically and emotionally.',
+          'I use discussion structures such as pair shares, buzz groups, or collaborative problem-solving.',
+          'Students appear comfortable taking intellectual risks in front of peers.',
+          'Students demonstrate empathy, encouragement, and shared ownership of learning.'
+        ]
+      },
+      Cortisol: {
+        intro: 'Do students experience productive challenge without overwhelming stress?',
+        max: 40,
+        questions: [
+          'I provide students with intellectually demanding tasks.',
+          'Students are asked to wrestle with open-ended questions or authentic problems.',
+          'I calibrate challenge so students experience productive struggle rather than panic.',
+          'I scaffold difficult learning experiences appropriately.',
+          'Students understand that confusion and struggle are normal parts of learning.',
+          'My classroom culture allows students to persist through difficulty without shame.',
+          'I monitor student stress levels and adjust when challenge becomes overwhelming.',
+          'I avoid creating unnecessary stress through excessive grading pressure, unpredictability, or public embarrassment.'
+        ]
+      }
     };
 
     const growthSuggestions = {
@@ -321,11 +337,14 @@
 
     const form = document.getElementById('inventoryForm');
 
-    Object.entries(sections).forEach(([sectionName, questions]) => {
-      const section = document.createElement('div');
-      section.innerHTML = `<h2>${sectionName}</h2>`;
+    Object.entries(sections).forEach(([sectionName, sectionData]) => {
+      const section = document.createElement('section');
+      section.innerHTML = `
+        <h2>${sectionName}</h2>
+        <div class="section-intro"><strong>${sectionData.intro}</strong></div>
+      `;
 
-      questions.forEach((question, index) => {
+      sectionData.questions.forEach((question, index) => {
         const div = document.createElement('div');
         div.className = 'question';
 
@@ -359,8 +378,8 @@
         Cortisol: 0
       };
 
-      Object.entries(sections).forEach(([sectionName, questions]) => {
-        questions.forEach((q, index) => {
+      Object.entries(sections).forEach(([sectionName, sectionData]) => {
+        sectionData.questions.forEach((q, index) => {
           const selected = document.querySelector(`input[name="${sectionName}-${index}"]:checked`);
           if (selected) {
             totals[sectionName] += parseInt(selected.value);
@@ -368,14 +387,13 @@
         });
       });
 
-      document.getElementById('endorphinsScore').textContent = totals.Endorphins;
-      document.getElementById('dopamineScore').textContent = totals.Dopamine;
-      document.getElementById('serotoninScore').textContent = totals.Serotonin;
-      document.getElementById('cortisolScore').textContent = totals.Cortisol;
+      document.getElementById('endorphinsScore').textContent = `${totals.Endorphins} / ${sections.Endorphins.max}`;
+      document.getElementById('dopamineScore').textContent = `${totals.Dopamine} / ${sections.Dopamine.max}`;
+      document.getElementById('serotoninScore').textContent = `${totals.Serotonin} / ${sections.Serotonin.max}`;
+      document.getElementById('cortisolScore').textContent = `${totals.Cortisol} / ${sections.Cortisol.max}`;
 
       const strongest = Object.entries(totals).sort((a,b)=>b[1]-a[1])[0][0];
       const weakest = Object.entries(totals).sort((a,b)=>a[1]-b[1])[0][0];
-
       const suggestions = growthSuggestions[weakest];
 
       document.getElementById('summary').innerHTML = `
@@ -390,66 +408,32 @@
           </ul>
         </div>
       `;
+
+      return { totals, strongest, weakest };
     }
 
     function downloadResults() {
-      calculateScores();
-
-      let totals = {
-        Endorphins: parseInt(document.getElementById('endorphinsScore').textContent) || 0,
-        Dopamine: parseInt(document.getElementById('dopamineScore').textContent) || 0,
-        Serotonin: parseInt(document.getElementById('serotoninScore').textContent) || 0,
-        Cortisol: parseInt(document.getElementById('cortisolScore').textContent) || 0
-      };
-
-      const strongest = Object.entries(totals).sort((a,b)=>b[1]-a[1])[0][0];
-      const weakest = Object.entries(totals).sort((a,b)=>a[1]-b[1])[0][0];
+      const result = calculateScores();
+      const totals = result.totals;
+      const strongest = result.strongest;
+      const weakest = result.weakest;
       const suggestions = growthSuggestions[weakest];
-      const textareas = document.querySelectorAll('textarea');
 
-      const resultsText = `The Biochemistry of Learning Reflection Inventory
-
-` +
-        `Scores
-` +
-        `Endorphins: ${totals.Endorphins}
-` +
-        `Dopamine: ${totals.Dopamine}
-` +
-        `Serotonin: ${totals.Serotonin}
-` +
-        `Cortisol: ${totals.Cortisol}
-
-` +
-        `Strongest Area: ${strongest}
-` +
-        `Growth Opportunity: ${weakest}
-
-` +
-        `${suggestions.title}
-` +
-        suggestions.ideas.map(idea => `- ${idea}`).join('
-') +
-        `
-
-Reflection & Action Planning
-
-` +
-        `Which hormone area is currently strongest in my practice?
-${textareas[0]?.value || ''}
-
-` +
-        `Which hormone area may need more intentional development?
-${textareas[1]?.value || ''}
-
-` +
-        `One practice I could begin implementing immediately:
-${textareas[2]?.value || ''}
-
-` +
-        `One classroom structure or routine I may need to rethink:
-${textareas[3]?.value || ''}
-`;
+      const resultsText = `The Biochemistry of Learning Reflection Inventory\n\n` +
+        `Scores\n` +
+        `Endorphins: ${totals.Endorphins} / ${sections.Endorphins.max}\n` +
+        `Dopamine: ${totals.Dopamine} / ${sections.Dopamine.max}\n` +
+        `Serotonin: ${totals.Serotonin} / ${sections.Serotonin.max}\n` +
+        `Cortisol: ${totals.Cortisol} / ${sections.Cortisol.max}\n\n` +
+        `Strongest Area: ${strongest}\n` +
+        `Growth Opportunity: ${weakest}\n\n` +
+        `${suggestions.title}\n` +
+        suggestions.ideas.map(idea => `- ${idea}`).join('\n') +
+        `\n\nReflection & Action Planning\n\n` +
+        `Which hormone area is currently strongest in my practice?\n${document.getElementById('reflection1').value}\n\n` +
+        `Which hormone area may need more intentional development?\n${document.getElementById('reflection2').value}\n\n` +
+        `One practice I could begin implementing immediately:\n${document.getElementById('reflection3').value}\n\n` +
+        `One classroom structure or routine I may need to rethink:\n${document.getElementById('reflection4').value}\n`;
 
       const blob = new Blob([resultsText], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
@@ -464,5 +448,3 @@ ${textareas[3]?.value || ''}
   </script>
 </body>
 </html>
-
-
