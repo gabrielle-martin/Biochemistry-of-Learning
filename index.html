@@ -124,6 +124,22 @@
       border-radius: 10px;
     }
 
+    .download-button {
+      margin-top: 20px;
+      padding: 14px 22px;
+      background: #1d4e89;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .download-button:hover {
+      background: #163b68;
+    }
+
     .instructions {
       background: #f8fafc;
       border-left: 6px solid #38bdf8;
@@ -181,6 +197,10 @@
       </div>
 
       <div id="summary"></div>
+
+      <button type="button" class="download-button" onclick="downloadResults()">
+        Download My Results
+      </button>
     </div>
 
     <div class="reflection-box">
@@ -370,6 +390,77 @@
         </div>
       `;
     }
+
+    function downloadResults() {
+      calculateScores();
+
+      let totals = {
+        Endorphins: parseInt(document.getElementById('endorphinsScore').textContent) || 0,
+        Dopamine: parseInt(document.getElementById('dopamineScore').textContent) || 0,
+        Serotonin: parseInt(document.getElementById('serotoninScore').textContent) || 0,
+        Cortisol: parseInt(document.getElementById('cortisolScore').textContent) || 0
+      };
+
+      const strongest = Object.entries(totals).sort((a,b)=>b[1]-a[1])[0][0];
+      const weakest = Object.entries(totals).sort((a,b)=>a[1]-b[1])[0][0];
+      const suggestions = growthSuggestions[weakest];
+      const textareas = document.querySelectorAll('textarea');
+
+      const resultsText = `The Biochemistry of Learning Reflection Inventory
+
+` +
+        `Scores
+` +
+        `Endorphins: ${totals.Endorphins}
+` +
+        `Dopamine: ${totals.Dopamine}
+` +
+        `Serotonin: ${totals.Serotonin}
+` +
+        `Cortisol: ${totals.Cortisol}
+
+` +
+        `Strongest Area: ${strongest}
+` +
+        `Growth Opportunity: ${weakest}
+
+` +
+        `${suggestions.title}
+` +
+        suggestions.ideas.map(idea => `- ${idea}`).join('
+') +
+        `
+
+Reflection & Action Planning
+
+` +
+        `Which hormone area is currently strongest in my practice?
+${textareas[0]?.value || ''}
+
+` +
+        `Which hormone area may need more intentional development?
+${textareas[1]?.value || ''}
+
+` +
+        `One practice I could begin implementing immediately:
+${textareas[2]?.value || ''}
+
+` +
+        `One classroom structure or routine I may need to rethink:
+${textareas[3]?.value || ''}
+`;
+
+      const blob = new Blob([resultsText], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'biochemistry-of-learning-results.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
   </script>
 </body>
 </html>
+
