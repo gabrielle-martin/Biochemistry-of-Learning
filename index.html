@@ -255,6 +255,49 @@
       ]
     };
 
+    const growthSuggestions = {
+      Endorphins: {
+        title: 'Targeting Endorphins: Build energy, ease stress, and increase readiness',
+        ideas: [
+          'Begin class with a brief mood-lifting routine: music, humour, a light personal story, or a welcoming ritual.',
+          'Add small movement moments, such as stretching, standing responses, getting materials, or a quick walk-and-talk.',
+          'Use laughter, warmth, and low-pressure opening tasks to reduce anxiety before students encounter demanding work.',
+          'When possible, incorporate outdoor moments, sensory resets, prayer, mindfulness, or centering rituals.',
+          'Watch for overstimulation: the goal is not constant entertainment, but emotional readiness and stamina.'
+        ]
+      },
+      Dopamine: {
+        title: 'Targeting Dopamine: Create motivation, progress, and early success',
+        ideas: [
+          'Start with a question students can answer successfully before moving into harder why or how questions.',
+          'Break larger tasks into visible milestones so students can feel progress along the way.',
+          'Use quick mastery checks, short completion moments, and immediate feedback to help students recognize growth.',
+          'Invite thinking with phrases such as, “I’m really interested in what you think about this.”',
+          'Avoid relying only on points, quizzes, or rewards; pair small wins with opportunities to connect ideas deeply.'
+        ]
+      },
+      Serotonin: {
+        title: 'Targeting Serotonin: Strengthen belonging, trust, and shared learning',
+        ideas: [
+          'Use pair shares, buzz groups, breakout rooms, or collaborative tasks before asking students to share publicly.',
+          'Design moments where students help one another make sense of an idea, not just divide up work.',
+          'Create community tasks where students contribute to something shared, such as a class list, group solution, or collective summary.',
+          'Build routines that help students feel seen: check-ins, peer appreciation, student voice, or small acts of classroom care.',
+          'Monitor who is included and who is quiet; belonging needs to be intentionally designed, especially online.'
+        ]
+      },
+      Cortisol: {
+        title: 'Targeting Cortisol: Add productive challenge without overwhelming stress',
+        ideas: [
+          'Introduce open-ended challenges, case studies, complex puzzles, or authentic problems after students have experienced safety, success, and connection.',
+          'Frame struggle as expected and useful: confusion can be a sign that real thinking is happening.',
+          'Use scaffolds such as hints, checkpoints, worked examples, or partner discussion so challenge feels earned rather than threatening.',
+          'Calibrate task difficulty carefully; productive struggle should create alertness, not panic or shutdown.',
+          'End challenging work with a debrief, celebration, or reflection so students leave with accomplishment rather than unresolved stress.'
+        ]
+      }
+    };
+
     const form = document.getElementById('inventoryForm');
 
     Object.entries(sections).forEach(([sectionName, questions]) => {
@@ -312,9 +355,19 @@
       const strongest = Object.entries(totals).sort((a,b)=>b[1]-a[1])[0][0];
       const weakest = Object.entries(totals).sort((a,b)=>a[1]-b[1])[0][0];
 
+      const suggestions = growthSuggestions[weakest];
+
       document.getElementById('summary').innerHTML = `
         <p><strong>Strongest Area:</strong> ${strongest}</p>
         <p><strong>Growth Opportunity:</strong> ${weakest}</p>
+
+        <div class="score-card" style="border-left-color:#fb923c; margin-top:20px;">
+          <div class="score-title">${suggestions.title}</div>
+          <p>Based on your lowest-scoring area, consider adding one or two of the following class design moves:</p>
+          <ul>
+            ${suggestions.ideas.map(idea => `<li>${idea}</li>`).join('')}
+          </ul>
+        </div>
       `;
     }
   </script>
